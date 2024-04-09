@@ -29,7 +29,21 @@ public class EmpleadoController {
 
     @PostMapping
     public Empleado addEmpleado(@RequestBody Empleado e) {
+        if (!isValidEdocivil(e.getCxEdocivil())) {
+            throw new IllegalArgumentException("El estado civil debe ser soltero (S) o casado (C)");
+        }
+        if (!isValidServmilitar(e.getbServmilitar())) {
+            throw new IllegalArgumentException("Se debe indicar si ha cumplido servicio militar (S) o no (N)");
+        }
         return service.addEmpleado(e);
+    }
+
+    private boolean isValidEdocivil(Character cxEdocivil) {
+        return (cxEdocivil == 'S' || cxEdocivil == 'C');
+    }
+
+    private boolean isValidServmilitar(Character bServmilitar) {
+        return (bServmilitar == 'S' || bServmilitar == 'N');
     }
 
 }
