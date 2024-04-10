@@ -6,11 +6,15 @@ import com.futurespace.teamwork.models.Empleado;
 import com.futurespace.teamwork.service.EmpleadoService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -29,21 +33,12 @@ public class EmpleadoController {
 
     @PostMapping
     public Empleado addEmpleado(@RequestBody Empleado e) {
-        if (!isValidEdocivil(e.getCxEdocivil())) {
-            throw new IllegalArgumentException("El estado civil debe ser soltero (S) o casado (C)");
-        }
-        if (!isValidServmilitar(e.getbServmilitar())) {
-            throw new IllegalArgumentException("Se debe indicar si ha cumplido servicio militar (S) o no (N)");
-        }
         return service.addEmpleado(e);
     }
 
-    private boolean isValidEdocivil(Character cxEdocivil) {
-        return (cxEdocivil == 'S' || cxEdocivil == 'C');
-    }
-
-    private boolean isValidServmilitar(Character bServmilitar) {
-        return (bServmilitar == 'S' || bServmilitar == 'N');
+    @PutMapping("/{idEmpleado}/baja")
+    public Empleado modifyFbaja(@PathVariable Long idEmpleado, @RequestParam Date newFbaja) {
+        return service.modifyFbajaEmpleado(idEmpleado, newFbaja);
     }
 
 }

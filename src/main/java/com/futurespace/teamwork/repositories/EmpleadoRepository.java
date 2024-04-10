@@ -6,4 +6,8 @@ import com.futurespace.teamwork.models.Empleado;
 
 public interface EmpleadoRepository extends JpaRepository<Empleado, Long> {
 
+    boolean existsByTxNif(String txNif);
+
+    boolean existsByEmail(String email);
+
 }

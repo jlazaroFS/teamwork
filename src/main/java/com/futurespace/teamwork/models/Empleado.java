@@ -46,7 +46,7 @@ public class Empleado {
     @Column(name = "f_alta", nullable = false)
     private Date fAlta;
 
-    @Column(name = "f_baja", nullable = false)
+    @Column(name = "f_baja", nullable = true)
     private Date fBaja;
 
     @Column(name = "cx_edocivil", nullable = false)
@@ -59,7 +59,7 @@ public class Empleado {
     }
 
     public Empleado(String txNif, String txNombre, String txApellido1, String txApellido2, Date fNacimiento,
-            String nTelefono1, String nTelefono2, String email, Date fAlta, Date fBaja, Character cxEdocivil,
+            String nTelefono1, String nTelefono2, String email, Date fAlta, Character cxEdocivil,
             Character bServmilitar) {
         this.txNif = txNif;
         this.txNombre = txNombre;
@@ -70,7 +70,6 @@ public class Empleado {
         this.nTelefono2 = nTelefono2;
         this.email = email;
         this.fAlta = fAlta;
-        this.fBaja = fBaja;
         this.cxEdocivil = cxEdocivil;
         this.bServmilitar = bServmilitar;
     }
