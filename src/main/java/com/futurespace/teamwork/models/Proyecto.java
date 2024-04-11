@@ -3,11 +3,13 @@ package com.futurespace.teamwork.models;
 import java.sql.Date;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 
+@Entity
 public class Proyecto {
     @Id
     @SequenceGenerator(name = "sec_proyecto", sequenceName = "sec_proyecto", allocationSize = 1)
@@ -28,7 +30,7 @@ public class Proyecto {
     private Date fBaja;
 
     @Column(name = "tx_lugar", nullable = true)
-    private Date txLugar;
+    private String txLugar;
 
     @Column(name = "tx_observaciones", nullable = true)
     private String txObservaciones;
@@ -36,7 +38,7 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public Proyecto(String txDescripcion, Date fInicio, Date fFin, Date txLugar, String txObservaciones) {
+    public Proyecto(String txDescripcion, Date fInicio, Date fFin, String txLugar, String txObservaciones) {
         this.txDescripcion = txDescripcion;
         this.fInicio = fInicio;
         this.fFin = fFin;
@@ -84,11 +86,11 @@ public class Proyecto {
         this.fBaja = fBaja;
     }
 
-    public Date getTxLugar() {
+    public String getTxLugar() {
         return txLugar;
     }
 
-    public void setTxLugar(Date txLugar) {
+    public void setTxLugar(String txLugar) {
         this.txLugar = txLugar;
     }
 

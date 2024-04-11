@@ -36,9 +36,9 @@ public class EmpleadoController {
         return service.addEmpleado(e);
     }
 
-    @PutMapping("/{idEmpleado}/baja")
-    public Empleado modifyFbaja(@PathVariable Long idEmpleado, @RequestParam Date newFbaja) {
-        return service.modifyFbajaEmpleado(idEmpleado, newFbaja);
+    @PutMapping("baja/{id}")
+    public Empleado unlistEmpleado(@PathVariable Long id) {
+        return service.unlistEmpleado(id);
     }
 
 }

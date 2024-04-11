@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.futurespace</groupId>
-	<artifactId>jpa-exercises</artifactId>
+	<artifactId>teamwork</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>jpa-exercises</name>
-	<description>Demo project for Spring Boot</description>
+	<name>teamwork</name>
+	<description>Project manager app</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -36,13 +36,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>6.4.4.Final</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
+
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>

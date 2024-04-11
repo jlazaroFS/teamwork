@@ -121,9 +121,9 @@ public class EmpleadoService {
         return (bServmilitar == 'S' || bServmilitar == 'N');
     }
 
-    public Empleado modifyFbajaEmpleado(Long idEmpleado, Date newFbaja) {
-        Empleado e = repository.findById(idEmpleado).orElseThrow(
-                () -> new IllegalArgumentException("No se ha encontrado ningún empleado con ID: " + idEmpleado));
+    private Empleado modifyFbajaEmpleado(Long id, Date newFbaja) {
+        Empleado e = repository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("No se ha encontrado ningún empleado con ID: " + id));
 
         if (newFbaja.before(e.getfAlta())) {
             throw new IllegalArgumentException("La fecha de baja debe ser posterior a la fecha de alta");
@@ -137,5 +137,10 @@ public class EmpleadoService {
 
         e.setfBaja(newFbaja);
         return repository.save(e);
+    }
+
+    public Empleado unlistEmpleado(Long id) {
+        Date today = Date.valueOf(LocalDate.now());
+        return modifyFbajaEmpleado(id, today);
     }
 }
