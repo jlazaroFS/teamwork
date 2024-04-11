@@ -7,6 +7,8 @@ import com.futurespace.teamwork.service.ProyectoService;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,17 +26,20 @@ public class ProyectoController {
     }
 
     @GetMapping
-    public List<Proyecto> getAllProyecto() {
-        return service.getAllProyecto();
+    public ResponseEntity<List<Proyecto>> getAllProyecto() {
+        List<Proyecto> proyectos = service.getAllProyecto();
+        return new ResponseEntity<>(proyectos, HttpStatus.OK);
     }
 
     @PostMapping
-    public Proyecto addProyecto(@RequestBody Proyecto p) {
-        return service.addProyecto(p);
+    public ResponseEntity<Proyecto> addProyecto(@RequestBody Proyecto p) {
+        Proyecto newProyecto = service.addProyecto(p);
+        return new ResponseEntity<>(newProyecto, HttpStatus.CREATED);
     }
 
     @PutMapping("baja/{idProyecto}")
-    public Proyecto unlistProyecto(@PathVariable Long idProyecto) {
-        return service.unlistProyecto(idProyecto);
+    public ResponseEntity<Proyecto> unlistProyecto(@PathVariable Long idProyecto) {
+        Proyecto unlistedProyecto = service.unlistProyecto(idProyecto);
+        return new ResponseEntity<>(unlistedProyecto, HttpStatus.OK);
     }
 }
