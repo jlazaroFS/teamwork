@@ -6,6 +6,8 @@ import com.futurespace.teamwork.models.Empleado;
 import com.futurespace.teamwork.service.EmpleadoService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("empleados")
 public class EmpleadoController {
@@ -44,6 +47,16 @@ public class EmpleadoController {
     public ResponseEntity<Empleado> unlistEmpleado(@PathVariable Long id) {
         Empleado unlistedEmpleado = service.unlistEmpleado(id);
         return new ResponseEntity<>(unlistedEmpleado, HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:8081", methods = { RequestMethod.OPTIONS })
+    @RequestMapping(method = RequestMethod.OPTIONS)
+    public ResponseEntity<?> handleOptionsRequest() {
+        return ResponseEntity.ok()
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                .header("Access-Control-Allow-Headers", "Authorization, Content-Type")
+                .header("Access-Control-Max-Age", "3600")
+                .build();
     }
 
 }
