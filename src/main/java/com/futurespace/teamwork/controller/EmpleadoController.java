@@ -33,6 +33,7 @@ public class EmpleadoController {
         return new ResponseEntity<>(empleados, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @PostMapping
     public ResponseEntity<Empleado> addEmpleado(@RequestBody Empleado e) {
         Empleado newEmpleado = service.addEmpleado(e);
