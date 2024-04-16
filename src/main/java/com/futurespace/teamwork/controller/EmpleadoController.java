@@ -43,6 +43,7 @@ public class EmpleadoController {
         return new ResponseEntity<>(newEmpleado, HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://localhost:8081")
     @PutMapping("baja/{id}")
     public ResponseEntity<Empleado> unlistEmpleado(@PathVariable Long id) {
         Empleado unlistedEmpleado = service.unlistEmpleado(id);
