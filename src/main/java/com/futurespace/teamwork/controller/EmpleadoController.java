@@ -29,21 +29,18 @@ public class EmpleadoController {
         this.service = service;
     }
 
-    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping
     public ResponseEntity<List<Empleado>> getAllEmpleado() {
         List<Empleado> empleados = service.getAllEmpleado();
         return new ResponseEntity<>(empleados, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:8081")
     @PostMapping
     public ResponseEntity<Empleado> addEmpleado(@RequestBody Empleado e) {
         Empleado newEmpleado = service.addEmpleado(e);
         return new ResponseEntity<>(newEmpleado, HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:8081")
     @PutMapping("baja/{id}")
     public ResponseEntity<Empleado> unlistEmpleado(@PathVariable Long id) {
         Empleado unlistedEmpleado = service.unlistEmpleado(id);
