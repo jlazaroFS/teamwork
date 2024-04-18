@@ -125,7 +125,7 @@ public class EmpleadoService {
         return (bServmilitar == 'S' || bServmilitar == 'N');
     }
 
-    private Empleado setFbajaEmpleado(Long id, Date newFbaja) {
+    private Empleado modifyFbajaEmpleado(Long id, Date newFbaja) {
         Empleado e = repository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("No se ha encontrado ningún empleado con ID: " + id));
 
@@ -163,6 +163,6 @@ public class EmpleadoService {
         }
 
         Date today = Date.valueOf(LocalDate.now());
-        return setFbajaEmpleado(id, today);
+        return modifyFbajaEmpleado(id, today);
     }
 }
