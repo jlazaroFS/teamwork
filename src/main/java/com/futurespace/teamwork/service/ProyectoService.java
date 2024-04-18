@@ -8,13 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.futurespace.teamwork.models.Proyecto;
 import com.futurespace.teamwork.repositories.ProyectoRepository;
+import com.futurespace.teamwork.repositories.AssignmentRepository;
 
 @Service
 public class ProyectoService {
     private final ProyectoRepository repository;
+    private final AssignmentRepository assignmentRepository;
 
-    public ProyectoService(ProyectoRepository repository) {
+    public ProyectoService(ProyectoRepository repository, AssignmentRepository assignmentRepository) {
         this.repository = repository;
+        this.assignmentRepository = assignmentRepository;
     }
 
     public List<Proyecto> getAllProyecto() {
@@ -56,12 +59,25 @@ public class ProyectoService {
         return repository.save(p);
     }
 
-    public Proyecto unlistProyecto(Long id) {
-        Date today = Date.valueOf(LocalDate.now());
-        return modifyFbajaProyecto(id, today);
-    }
-
     public Proyecto getProyectoById(Long id) {
         return repository.findById(id).orElse(null);
+    }
+
+    public Proyecto unlistProyecto(Long id) {
+        Proyecto proyecto = repository.findById(id).orElse(null);
+        if (proyecto == null) {
+            throw new IllegalArgumentException("No se ha encontrado ningún proyecto con ID: " + id);
+        }
+
+        // Check if the project has any assignments
+        boolean hasAssignments = assignmentRepository.existsById_IdProyecto(id);
+        if (hasAssignments) {
+            throw new IllegalStateException(
+                    "No se puede dar de baja el proyecto " + proyecto.getTxDescripcion()
+                            + " porque tiene empleados asignados.");
+        }
+
+        Date today = Date.valueOf(LocalDate.now());
+        return modifyFbajaProyecto(id, today);
     }
 }
