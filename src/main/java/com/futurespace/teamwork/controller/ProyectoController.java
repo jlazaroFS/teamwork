@@ -30,7 +30,7 @@ public class ProyectoController {
     @GetMapping
     public ResponseEntity<List<Proyecto>> getAllProyecto() {
         List<Proyecto> proyectos = service.getAllProyecto();
-        return new ResponseEntity<>(proyectos, HttpStatus.OK);
+        return new ResponseEntity<>(proyectos, proyectos.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
     }
 
     @PostMapping

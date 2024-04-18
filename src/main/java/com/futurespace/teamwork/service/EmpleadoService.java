@@ -3,17 +3,22 @@ package com.futurespace.teamwork.service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.expression.spel.ast.Assign;
 import org.springframework.stereotype.Service;
 
 import com.futurespace.teamwork.models.Empleado;
+import com.futurespace.teamwork.repositories.AssignmentRepository;
 import com.futurespace.teamwork.repositories.EmpleadoRepository;
 
 @Service
 public class EmpleadoService {
     private final EmpleadoRepository repository;
+    private final AssignmentService assignmentService;
 
-    public EmpleadoService(EmpleadoRepository repository) {
+    public EmpleadoService(EmpleadoRepository repository, AssignmentService assignmentService) {
         this.repository = repository;
+        this.assignmentService = assignmentService;
     }
 
     public List<Empleado> getAllEmpleado() {
@@ -121,7 +126,7 @@ public class EmpleadoService {
         return (bServmilitar == 'S' || bServmilitar == 'N');
     }
 
-    private Empleado modifyFbajaEmpleado(Long id, Date newFbaja) {
+    private Empleado setFbajaEmpleado(Long id, Date newFbaja) {
         Empleado e = repository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("No se ha encontrado ningún empleado con ID: " + id));
 
@@ -140,7 +145,27 @@ public class EmpleadoService {
     }
 
     public Empleado unlistEmpleado(Long id) {
+        Empleado empleado = repository.findById(id).orElse(null);
+        if (empleado == null) {
+            throw new IllegalArgumentException("No se ha encontrado ningún empleado con ID: " + id);
+        }
+
+        // Check if the employee has any assignments
+        boolean hasAssignments = assignmentService.hasAssignmentsForEmpleado(id);
+        if (hasAssignments) {
+            String fullName = empleado.getTxNombre() + " " + empleado.getTxApellido1() + " "
+                    + empleado.getTxApellido2();
+            throw new IllegalStateException(
+                    "No se puede dar de baja a " + fullName + " porque tiene proyectos asignados no dados de baja.");
+        }
+
+        // If the employee has no assignments, set the fBaja date to today
         Date today = Date.valueOf(LocalDate.now());
-        return modifyFbajaEmpleado(id, today);
+        empleado.setfBaja(today);
+        return repository.save(empleado);
+    }
+
+    public Empleado getEmpleadoById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 }

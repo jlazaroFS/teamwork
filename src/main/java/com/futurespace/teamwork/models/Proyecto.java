@@ -8,8 +8,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "pr_proyectos")
 public class Proyecto {
     @Id
     @SequenceGenerator(name = "sec_proyecto", sequenceName = "sec_proyecto", allocationSize = 1)
@@ -17,7 +19,7 @@ public class Proyecto {
     @Column(name = "id_proyecto", updatable = false, nullable = false)
     private Long idProyecto;
 
-    @Column(name = "tx_descripcion", nullable = false)
+    @Column(name = "TX_DESCRIPCIÓN", nullable = false)
     private String txDescripcion;
 
     @Column(name = "f_inicio", nullable = false)

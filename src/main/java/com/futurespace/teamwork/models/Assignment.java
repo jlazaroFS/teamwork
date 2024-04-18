@@ -23,6 +23,38 @@ public class Assignment {
     @JoinColumn(name = "id_empleado", insertable = false, updatable = false)
     private Empleado idEmpleado;
 
-    @Column(name = "f_alta", insertable = false, updatable = false)
+    @Column(name = "f_alta")
     private Date fAlta;
+
+    public AssignmentId getId() {
+        return id;
+    }
+
+    public void setId(AssignmentId id) {
+        this.id = id;
+    }
+
+    public Proyecto getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(Proyecto idProyecto) {
+        this.idProyecto = idProyecto;
+    }
+
+    public Empleado getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public void setIdEmpleado(Empleado idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    public Date getfAlta() {
+        return fAlta;
+    }
+
+    public void setfAlta(Date fAlta) {
+        this.fAlta = fAlta;
+    }
 }

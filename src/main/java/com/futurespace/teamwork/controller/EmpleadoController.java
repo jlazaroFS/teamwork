@@ -31,7 +31,7 @@ public class EmpleadoController {
     @GetMapping
     public ResponseEntity<List<Empleado>> getAllEmpleado() {
         List<Empleado> empleados = service.getAllEmpleado();
-        return new ResponseEntity<>(empleados, HttpStatus.OK);
+        return new ResponseEntity<>(empleados, empleados.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
     }
 
     @PostMapping

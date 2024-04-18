@@ -35,15 +35,7 @@ public class ProyectoService {
         Date end = p.getfFin();
         Date unlist = p.getfBaja();
 
-        if (end != null && !start.before(end)) {
-            return false;
-        }
-
-        if (unlist != null && !start.before(unlist)) {
-            return false;
-        }
-
-        return true;
+        return !(end != null && !start.before(end)) || (unlist != null && !start.before(unlist));
     }
 
     private Proyecto modifyFbajaProyecto(Long id, Date newFbaja) {
@@ -67,5 +59,9 @@ public class ProyectoService {
     public Proyecto unlistProyecto(Long id) {
         Date today = Date.valueOf(LocalDate.now());
         return modifyFbajaProyecto(id, today);
+    }
+
+    public Proyecto getProyectoById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 }
