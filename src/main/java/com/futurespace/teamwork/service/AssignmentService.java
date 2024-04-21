@@ -3,6 +3,7 @@ package com.futurespace.teamwork.service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,13 @@ public class AssignmentService {
 
     public List<Assignment> getAllAssignment() {
         return repository.findAll();
+    }
+
+    public List<Long> getAssignedIdsToProject(Long projectId) {
+        List<Assignment> assignments = repository.findById_IdProyecto(projectId);
+        return assignments.stream()
+                .map(assignment -> assignment.getId().getIdEmpleado())
+                .collect(Collectors.toList());
     }
 
     public Assignment addAssignment(AssignmentId ids) {

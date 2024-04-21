@@ -33,6 +33,12 @@ public class AssignmentController {
         return new ResponseEntity<>(assignments, assignments.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
     }
 
+    @GetMapping("/{idProyecto}")
+    public ResponseEntity<List<Long>> findAssignedEmployeesByProjectId(@PathVariable Long idProyecto) {
+        List<Long> ids = service.getAssignedIdsToProject(idProyecto);
+        return new ResponseEntity<>(ids, ids.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Assignment> addAssignment(@RequestBody AssignmentId ids) {
         Assignment newAssignment = service.addAssignment(ids);
